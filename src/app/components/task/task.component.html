@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Create / Edit</h2>
+<mat-dialog-content class="mat-typography">
+  @if(taskForm) {
+  <form class="task-wrapper" [formGroup]="taskForm">
+    <!-- Title  -->
+    <mat-form-field class="mat-form-field">
+      <mat-label>Title:</mat-label>
+      <input matInput formControlName="title" type="text" />
+      @if(taskForm.controls['title'].invalid) {
+      <mat-error>Title is required</mat-error>
+      }
+    </mat-form-field>
+    <!-- Description -->
+    <mat-form-field class="mat-form-field">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        type="text"
+      >
+      </textarea>
+    </mat-form-field>
+    <!-- Due Date -->
+    <mat-form-field class="mat-form-field">
+      <mat-label>Due Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="dueDate"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if(taskForm.controls['dueDate'].invalid) {
+      <mat-error>Due Date is required</mat-error>
+      }
+    </mat-form-field>
+    <!-- Status -->
+    <mat-form-field class="mat-form-field">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" name="status">
+        @for (status of statusOptions; track status) {
+        <mat-option [value]="status.value">{{ status.label }}</mat-option>
+        }
+      </mat-select>
+      @if(taskForm.controls['status'].invalid) {
+      <mat-error>Status is required</mat-error>
+      }
+    </mat-form-field>
+  </form>
+  } @else {
+  <p>Task not found!</p>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    [mat-dialog-close]="taskForm.value"
+    [disabled]="taskForm.invalid"
+  >
+    Done
+  </button>
+
+  <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
+</mat-dialog-actions>
