@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Task } from '../../interfaces/task';
-import { Router } from '@angular/router';
 
 //angular material
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
